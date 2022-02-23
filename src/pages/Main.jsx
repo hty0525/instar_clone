@@ -1,18 +1,14 @@
-import React from 'react';
-import styled from 'styled-components'
+import React, { useEffect } from 'react';
+
+import PostList from '../components/post/PostList'
 
 const Main = () => {
+
     return (
-        <MainWrap>
-            asdfasfd
-        </MainWrap>
+        <PostList/>
     );
 };
 
-const MainWrap = styled.section`
-    width:50%;
-    margin:0 auto;
-    background:powderblue;
-`
+
 
 export default Main;

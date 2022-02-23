@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-const Join = () => {
+import { useNavigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { joinFB } from '../redux/modules/user';
+
+const Join = () => {
+    const dispatch = useDispatch();
+    const emailRef = useRef();
+    const nameRef = useRef();
+    const pwRef = useRef();
+    const pwconfirm = useRef()
+    const navigate = useNavigate()
     const handleJoin = (e)=>{
         e.preventDefault();
+
+        const email = emailRef.current.value;
+        const name = nameRef.current.value;
+        const pw = pwRef.current.value;
+        const data = {
+            email,
+            pw,
+            name
+        }
+        dispatch(joinFB(data))
+        navigate('/', {replace:true})
     }
 
     return (
@@ -15,7 +36,8 @@ const Join = () => {
                 아이디
             </JoinLabel>
             <JoinInput
-                placeholder='아이디를 입력해주세요'
+                placeholder='이메일을 입력해주세요'
+                ref={emailRef}
             />
 
             <JoinLabel>
@@ -23,6 +45,7 @@ const Join = () => {
             </JoinLabel>
             <JoinInput
                 placeholder='닉네임을 입력해주세요'
+                ref={nameRef}
             />
 
             <JoinLabel>
@@ -30,6 +53,8 @@ const Join = () => {
             </JoinLabel>
             <JoinInput
                 placeholder='비밀번호를 입력해주세요'
+                ref={pwRef}
+                type="password"
             />
 
             <JoinLabel>
@@ -37,6 +62,8 @@ const Join = () => {
             </JoinLabel>
             <JoinInput
                 placeholder='비밀번호를 다시 입력해주세요'
+                ref={pwconfirm}
+                type="password"
             />
             <JoinBtn>
                 회원가입하기

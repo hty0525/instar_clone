@@ -1,72 +1,78 @@
-import React, { useEffect, useState } from 'react';
-import { getCookie,deleteCookie } from '../../shared/cookie';
-
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'
+import { logoutFB, userStatus } from '../../redux/modules/user';
 
-
-const Nav = () => {
-    const[islogin,setIsLogin]= useState(false)
+const Nav = ({isLogin}) => {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
-    const logOut = ()=>{
-        deleteCookie('user_id')
+    const logOut = () => {
+        dispatch(logoutFB())
+        navigate("/", { replace: true })
     }
 
-    const goLoginPage = ()=>{
+    const goLoginPage = () => {
         navigate('/login')
     }
 
-    const goJoinPage = ()=>{
+    const goJoinPage = () => {
         navigate('/join')
     }
 
-    useEffect(()=>{
-        let cookie = getCookie('user_id')
-        if(cookie){
-            setIsLogin(true)
+    const goWrtie = ()=>{
+        if(!isLogin){
+            return alert('로그인 후 이용해 주세요!')
         }
-
-    },[islogin])
-    if(islogin){
-        return (
-            <NavWrap>
-                <NavItem>
-                    <NavBtn>
-                        내정보
-                    </NavBtn>
-                    <NavBtn>
-                        알림
-                    </NavBtn>
-                    <NavBtn
-                        onClick={logOut}>
-                        로그아웃
-                    </NavBtn> 
-                </NavItem>
-            </NavWrap>
-        )
+        navigate('/write');
     }
+
+    useEffect(() => {
+        dispatch(userStatus())
+    }, [])
     return (
         <NavWrap>
-            <NavItem>
-                <NavBtn onClick={goLoginPage}>
-                    로그인
-                </NavBtn>
-                <NavBtn onClick={goJoinPage}>
-                    회원가입
-                </NavBtn>
-            </NavItem>
+            <WriteBtn onClick={goWrtie}>글쓰기</WriteBtn>
+            {
+                isLogin ?
+                    <NavItem>
+                        <NavBtn>
+                            내정보
+                        </NavBtn>
+                        <NavBtn>
+                            알림
+                        </NavBtn>
+                        <NavBtn
+                            onClick={logOut}>
+                            로그아웃
+                        </NavBtn>
+                    </NavItem>
+                    :
+                    <NavItem>
+                        <NavBtn onClick={goLoginPage}>
+                            로그인
+                        </NavBtn>
+                        <NavBtn onClick={goJoinPage}>
+                            회원가입
+                        </NavBtn>
+                    </NavItem>
+            }
         </NavWrap>
-    );
-};
-
+    )
+}
 const NavWrap = styled.ul`
-    margin:0 auto;
+    display:flex;
 `
 const NavItem = styled.li`
-    
+    margin-left:20px;
 `
 
 const NavBtn = styled.button`
+    margin-left:20px;
+`
+
+const WriteBtn = styled.button`
     
 `
 

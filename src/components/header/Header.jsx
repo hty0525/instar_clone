@@ -3,35 +3,46 @@ import Nav from './Nav';
 
 import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
-const Header = () => {
+const Header = ({isLogin}) => {
     const navigate = useNavigate();
 
     const goHome = ()=>{
         navigate('/')
     }
+
     return (
         <HeaderWrap>
-            <Logo onClick={goHome}>
-                로고
-            </Logo>
-            <Nav/>
+            <HeaderBox>
+                <Logo onClick={goHome}>
+                    HangHae99
+                </Logo>
+                <Nav isLogin={isLogin}/>
+            </HeaderBox>
         </HeaderWrap>
     );
 };
 
 const HeaderWrap = styled.header`
+    width:100%;
+    margin:0 auto;
+    position: sticky;
+    top:0;
+    left:0;
+    padding:10px 0;
+    border-bottom: 1px solid #dbdbdb;
+    z-index: 5;
+    background:white;
+`
+
+const HeaderBox = styled.div`
     display:flex;
     align-items: center;
     justify-content: space-between;
-    width:100%;
+    width:50%;
     margin:0 auto;
-    position: fixed;
-    top:0;
-    left:0;
-    border:10px solid black;
 `
 
 const Logo = styled.h1`
-    
+
 `
 export default Header;

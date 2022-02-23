@@ -6,3 +6,18 @@
 ul li {
   list-style: none;
 }
+
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+body {
+  background: #fafafa;
+}
