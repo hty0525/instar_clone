@@ -1,0 +1,19 @@
+{
+  "dic": [
+    {
+      "list": "code",
+      "explanation": "front", 
+			"example": "react"
+    },
+    {
+      "list": "coding",
+      "explanation": "back", 
+			"example": "spring"
+    },
+    {
+      "list": "san",
+      "explanation": "jang", 
+			"example": "seoul"
+    }
+  ]
+}
